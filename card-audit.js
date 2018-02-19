@@ -2,9 +2,7 @@
 
 const Audit = require('lighthouse').Audit;
 
-const MAX_CARD_TIME = 8000;
-
-const MAX_LOAD_TIME = 3000;
+const MAX_CARD_TIME = 2000;
 
 class LoadAudit extends Audit {
     static get meta() {
@@ -34,31 +32,3 @@ class LoadAudit extends Audit {
 
 
 module.exports = LoadAudit;
-
-
-
-class LoadApiAudit extends Audit {
-    static get meta() {
-        return {
-            category: 'MyPerformance',
-            name: 'api-audit',
-            description: 'Check out call api',
-            failureDescription: 'Check out call api time',
-            helpText: 'In this test, we find if the call api take in less three seconds',
-            requiredArtifacts: ['TimeCallAPI']
-        };
-    }
-
-    static audit(artifacts) {
-        const loadedTime = artifacts.TimeToApi;
-
-        const belowThreshold = loadedTime <= MAX_LOAD_TIME;
-
-        return {
-            rawValue: loadedTime,
-            score: belowThreshold
-        };
-    }
-}
-
-module.exports = LoadApiAudit;
